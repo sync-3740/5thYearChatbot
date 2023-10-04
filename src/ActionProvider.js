@@ -5,9 +5,9 @@ class ActionProvider {
     this.setState = setStateFunc;
   }
   
-  greet() {
-    const greetingMessage = this.createChatBotMessage("Hi, friend.")
-    this.updateChatbotState(greetingMessage)
+  empty() {
+    const emptyMessage = this.createChatBotMessage("Hello, it appears you have not entered a message. Type in your questions about blood pressure to get information.")
+    this.updateChatbotState(emptyMessage)
   }
 
   handleRequest = (clicked) => {
@@ -28,6 +28,28 @@ class ActionProvider {
       response,
       {
         widget: widget
+      }
+    );
+
+    this.updateChatbotState(message);
+  }
+
+  handleNewImageMessage = (response, image_name) => {
+    const message = this.createChatBotMessage(
+      response,
+      {
+        widget: "ImageHandler", payload: image_name
+      }
+    );
+
+    this.updateChatbotState(message);
+  }
+
+  handleNewVideoMessage = (response, video_url) => {
+    const message = this.createChatBotMessage(
+      response,
+      {
+        widget: "VideoHandler", payload: video_url
       }
     );
 

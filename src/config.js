@@ -18,7 +18,8 @@ import MedicationOptions from "./components/Medication/MedicationOptions";
 import {ACEInhibitors, Angiotensin, CalciumChannel, DiureticsOptions, Diuretics, BetaBlockers} from "./components/Medication/All_Medications";
 import WomenOptions from "./components/Women/WomenOptions";
 import PregnancyHypertension from "./components/Women/PregnancyHypertension";
-//import Angiotensin from "./components/Medication/Angiotensin";
+import ImageHandler from "./components/ImageHandler/ImageHandler";
+import VideoHandler from "./components/ImageHandler/VideoHandler";
 
 const config = { 
    botName: "HeartBot",
@@ -118,6 +119,14 @@ const config = {
    {
       widgetName: "PregnancyHypertension",
       widgetFunc: (props) => <PregnancyHypertension {...props} />,
+   },
+   {
+      widgetName: "ImageHandler",
+      widgetFunc: (props) => <ImageHandler {...props} />,
+   },
+   {
+      widgetName: "VideoHandler",
+      widgetFunc: (props) => <VideoHandler {...props} />,
    },
    {
       widgetName: "javascriptLinks",
