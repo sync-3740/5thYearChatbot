@@ -21,7 +21,7 @@ class ActionProvider {
       stored_data = []  
     }
     stored_data.push(json_data)
-    console.log(stored_data)
+    //console.log(stored_data)
     localStorage.setItem("Data", JSON.stringify(stored_data));
   }
 
