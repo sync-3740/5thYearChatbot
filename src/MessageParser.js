@@ -9,6 +9,7 @@ class MessageParser {
     if (lowerCaseMessage === "") {
       this.actionProvider.empty()
     } else {
+      this.actionProvider.addMessage("Fetching response...")
     
       fetch("https://api.vectara.io:443/v1/query", {
         headers: {
@@ -22,20 +23,11 @@ class MessageParser {
         })
         .then((res) => res.json())
         .then((data) => {
+          //console.log(data)
 
-          //var stored_data = JSON.parse(localStorage.getItem("Data"));
           var response_summary = data.responseSet[0].summary[0].text
-          //const json_data = {Time: Date(), Question: lowerCaseMessage, Response: response_summary}
-
-          // if (stored_data == null){
-          //   stored_data = []  
-          // }
-          // stored_data.push(json_data)
           
-          // localStorage.setItem("Data", JSON.stringify(stored_data));
-          this.actionProvider.store_data(lowerCaseMessage, response_summary)
-
-          this.actionProvider.handleNewMessage(lowerCaseMessage, response_summary)
+          this.actionProvider.handleNewSummaryMessage(lowerCaseMessage, response_summary)
         })
         .catch((error) => console.log(error))
                   

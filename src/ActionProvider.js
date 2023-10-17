@@ -1,9 +1,10 @@
 import message_to_response from "./Chatbot_Responses";
 
 class ActionProvider {
-  constructor(createChatBotMessage, setStateFunc, createClientMessage) {
+  constructor(createChatBotMessage, setStateFunc, createClientMessage, createCustomMessage) {
     this.createChatBotMessage = createChatBotMessage;
     this.createClientMessage = createClientMessage
+    this.createCustomMessage = createCustomMessage
     this.setState = setStateFunc;
   }
   
@@ -20,7 +21,7 @@ class ActionProvider {
       stored_data = []  
     }
     stored_data.push(json_data)
-    //console.log(stored_data)
+    console.log(stored_data)
     localStorage.setItem("Data", JSON.stringify(stored_data));
   }
 
@@ -33,6 +34,15 @@ class ActionProvider {
     this.store_data(clicked, message_to_response[clicked])
     const message = this.createChatBotMessage(
       message_to_response[clicked]
+    );
+
+    this.updateChatbotState(message);
+  }
+
+  handleNewSummaryMessage = (question, response) => {
+    this.store_data(question, response)
+    const message = this.createChatBotMessage(
+      response
     );
 
     this.updateChatbotState(message);
@@ -79,6 +89,14 @@ class ActionProvider {
       {
         widget: "VideoHandler", payload: video_url
       }
+    );
+
+    this.updateChatbotState(message);
+  }
+
+  addMessage = (response) => {
+    const message = this.createCustomMessage(
+      response,
     );
 
     this.updateChatbotState(message);
