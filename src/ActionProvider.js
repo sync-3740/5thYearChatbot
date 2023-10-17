@@ -1,10 +1,10 @@
 import message_to_response from "./Chatbot_Responses";
 
 class ActionProvider {
-  constructor(createChatBotMessage, setStateFunc, createClientMessage, createCustomMessage) {
+  constructor(createChatBotMessage, setStateFunc, createClientMessage) {
     this.createChatBotMessage = createChatBotMessage;
     this.createClientMessage = createClientMessage
-    this.createCustomMessage = createCustomMessage
+    //this.createCustomMessage = createCustomMessage
     this.setState = setStateFunc;
   }
   
@@ -95,7 +95,7 @@ class ActionProvider {
   }
 
   addMessage = (response) => {
-    const message = this.createCustomMessage(
+    const message = this.createChatBotMessage(
       response,
     );
 
