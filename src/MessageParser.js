@@ -23,19 +23,33 @@ class MessageParser {
         })
         .then((res) => res.json())
         .then((data) => {
-          //console.log(data)
+          console.log(data)          
 
           var response_summary = data.responseSet[0].summary[0].text
+
+          var new_response = this.format_message(response_summary)
           
-          this.actionProvider.handleNewSummaryMessage(lowerCaseMessage, response_summary)
+          this.actionProvider.handleNewSummaryMessage(lowerCaseMessage, new_response)
         })
         .catch((error) => console.log(error))
-                  
-
-          // if (lowerCaseMessage.includes("javascript")) {
-          //   this.actionProvider.handleJavascriptList();
-          // }
         }
+    }
+
+    format_message(message){
+      const regex = / \[\d+\]/g;
+      const regex2 = /\[\d+\] /g;
+      var mod_message = message.replace(regex, '')
+      var new_message = mod_message.replace(regex2, '')
+      const firstDotIndex = new_message.indexOf('.');
+      const secondDotIndex = new_message.indexOf('.', firstDotIndex + 1);
+
+      // Remove everything after the second full stop
+      if (secondDotIndex !== -1) {
+        var formatted_message = new_message.substring(0, secondDotIndex + 1); // Include the second full stop
+        return formatted_message
+      } else {
+        return new_message
+      }
     }
 }
 

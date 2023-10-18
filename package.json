@@ -10,7 +10,7 @@
     "botui": "^1.1.3",
     "node-nlp": "^4.27.0",
     "react": "^18.2.0",
-    "react-chatbot-kit": "^2.1.2",
+    "react-chatbot-kit": "https://github.com/sync-3740/react-chatbot-kit.git",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"

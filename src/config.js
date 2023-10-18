@@ -25,7 +25,7 @@ const config = {
    botName: "HeartBot",
    initialMessages: [createChatBotMessage("Hi, I'm here to help. What do you want to learn?", {
    widget: "learningOptions",
-   botAvatar: "H",
+   //botAvatar: "H",
    }),
    ],
    customStyles: {
@@ -35,6 +35,8 @@ const config = {
       chatButton: {
          backgroundColor: "#376B7E",
       },
+      //botAvatar: (props) => <ChatbotAvatar {...props} />,
+      //botMessageBox: CustomBotMessage,
    },
    widgets: [
    {

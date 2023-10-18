@@ -33,7 +33,7 @@ class ActionProvider {
   handleNewMessage = (clicked) => {
     this.store_data(clicked, message_to_response[clicked])
     const message = this.createChatBotMessage(
-      message_to_response[clicked]
+      message_to_response[clicked],
     );
 
     this.updateChatbotState(message);
@@ -42,7 +42,7 @@ class ActionProvider {
   handleNewSummaryMessage = (question, response) => {
     this.store_data(question, response)
     const message = this.createChatBotMessage(
-      response
+      response,
     );
 
     this.updateChatbotState(message);
