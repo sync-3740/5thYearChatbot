@@ -81,7 +81,7 @@ const Diuretics = (props) => {
     { text: "What are Diuretics?", handler: () => {props.actionProvider.handleRequest("What are Diuretics?"); props.actionProvider.handleNewMessage("What are Diuretics?")}, id: 1 },
     { text: "Warnings/Cautions", handler: () => {props.actionProvider.handleRequest("Warnings/Cautions"); props.actionProvider.handleNewMessage("Diuretics Warnings/Cautions")}, id: 2 },
     { text: "How do they work?", handler: () => {props.actionProvider.handleRequest("How do they work?"); props.actionProvider.handleNewMessage("How do Diuretics work?")}, id: 3 },
-    { text: "The types of Diuretics?", handler: () => {props.actionProvider.handleRequest("The types of Diuretics?"); props.actionProvider.handleNewWidgetMessage("The types of Diuretics?", "DiureticOptions")}, id: 4 },
+    { text: "The types of Diuretics?", handler: () => {props.actionProvider.handleRequest("The types of Diuretics?"); props.actionProvider.handleNewWidgetMessage("The types of Diuretics?", "DiureticsOptions")}, id: 4 },
     { text: "What do I need to tell my doctor before taking these?", handler: () => {props.actionProvider.handleRequest("What do I need to tell my doctor before taking these?"); props.actionProvider.handleNewMessage("What do I need to tell my doctor before taking Diuretics?")}, id: 5 },
     { text: "What should I be aware of while taking these?", handler: () => {props.actionProvider.handleRequest("What should I be aware of while taking these?"); props.actionProvider.handleNewMessage("What should I be aware of while taking Diuretics?")}, id: 6 },
     { text: "Side Effects", handler: () => {props.actionProvider.handleRequest("Side Effects"); props.actionProvider.handleNewMessage("Side Effects of Diuretics")}, id: 7 },

@@ -36,20 +36,30 @@ class MessageParser {
     }
 
     format_message(message){
-      const regex = / \[\d+\]/g;
-      const regex2 = /\[\d+\] /g;
-      var mod_message = message.replace(regex, '')
-      var new_message = mod_message.replace(regex2, '')
+      var new_message = this.remove_references(message)
+
       const firstDotIndex = new_message.indexOf('.');
       const secondDotIndex = new_message.indexOf('.', firstDotIndex + 1);
 
-      // Remove everything after the second full stop
       if (secondDotIndex !== -1) {
         var formatted_message = new_message.substring(0, secondDotIndex + 1); // Include the second full stop
         return formatted_message
       } else {
         return new_message
       }
+    }
+
+    remove_references(message){
+      const regex = / \[\d+\]/g;
+      const regex2 = /\[\d+\] /g;
+      const regex3 = /\[\d+\]/g;
+      
+      var new_message1 = message.replace(regex, '')
+      var new_message2 = new_message1.replace(regex2, '')
+      var new_message3 = new_message2.replace(regex3, '')
+
+      return new_message3
+      
     }
 }
 

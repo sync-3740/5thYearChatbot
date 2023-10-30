@@ -9,7 +9,7 @@ const BPandMe = (props) => {
     { text: "Ethnicity", handler: () => {props.actionProvider.handleRequest("Ethnicity"); props.actionProvider.handleNewMessage("Ethnicity")}, id: 3 },
     { text: "Obesity", handler: () => {props.actionProvider.handleRequest("Obesity"); props.actionProvider.handleNewMessage("Obesity")}, id: 4 },
     { text: "Weight", handler: () => {props.actionProvider.handleRequest("Weight"); props.actionProvider.handleNewVideoMessage("Weight", "https://www.youtube.com/embed/gaaTW0Elxgg")}, id: 5 },
-    { text: "Waist Circumference", handler: () => {props.actionProvider.handleRequest("Waist Circumference"); props.actionProvider.handleNewVideoMessage("Wasit Circumference", "https://www.youtube.com/embed/t4LYqIxWHQQ")}, id: 6 },
+    { text: "Waist Circumference", handler: () => {props.actionProvider.handleRequest("Waist Circumference"); props.actionProvider.handleNewVideoMessage("Waist Circumference", "https://www.youtube.com/embed/t4LYqIxWHQQ")}, id: 6 },
   ];
 
   const optionsMarkup = options.map((option) => (
