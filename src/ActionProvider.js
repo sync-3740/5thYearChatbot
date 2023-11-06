@@ -134,6 +134,23 @@ class ActionProvider {
 
     this.updateChatbotState(message);
   }
+
+  handleOfficeBP = () => {
+    var clicked = "Office BP"
+    this.store_data(clicked, message_to_response[clicked])
+    for (let i = 0; i < message_to_response[clicked].length - 1; i++){
+      this.addMessage(message_to_response[clicked][i])
+    }
+    const message = this.createChatBotMessage(
+      message_to_response[clicked][message_to_response[clicked].length - 1],
+      {
+        widget: "ImageHandler", payload: "office_bp"
+      }
+    );
+
+    this.updateChatbotState(message);
+
+  }
   
   updateChatbotState(message) {
  
