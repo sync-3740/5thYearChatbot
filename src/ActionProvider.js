@@ -1,3 +1,4 @@
+// import { click } from "@testing-library/user-event/dist/click";
 import message_to_response from "./Chatbot_Responses";
 
 class ActionProvider {
@@ -31,9 +32,29 @@ class ActionProvider {
   }
 
   handleNewMessage = (clicked) => {
-    this.store_data(clicked, message_to_response[clicked])
+    var message;
+    if (Array.isArray(message_to_response[clicked])){
+      this.store_data(clicked, message_to_response[clicked][0])
+      message = this.createChatBotMessage(
+        message_to_response[clicked][0],
+        {
+          widget: "MoreInfo", payload: clicked
+        }
+      );
+    } else {
+      this.store_data(clicked, message_to_response[clicked])
+      message = this.createChatBotMessage(
+        message_to_response[clicked],
+      );
+    }
+
+    this.updateChatbotState(message);
+  }
+
+  handleNewExtraMessage = (clicked) => {
+    this.store_data(clicked + " 1", message_to_response[clicked][1])
     const message = this.createChatBotMessage(
-      message_to_response[clicked],
+      message_to_response[clicked][1],
     );
 
     this.updateChatbotState(message);
@@ -88,6 +109,18 @@ class ActionProvider {
       message_to_response[clicked],
       {
         widget: "VideoHandler", payload: video_url
+      }
+    );
+
+    this.updateChatbotState(message);
+  }
+
+  handleNewHyperlinkMessage = (clicked, link) => {
+    this.store_data(clicked, message_to_response[clicked])
+    const message = this.createChatBotMessage(
+      message_to_response[clicked],
+      {
+        widget: "HyperlinkHandler", payload: link
       }
     );
 

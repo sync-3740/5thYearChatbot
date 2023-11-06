@@ -20,6 +20,8 @@ import WomenOptions from "./components/Women/WomenOptions";
 import PregnancyHypertension from "./components/Women/PregnancyHypertension";
 import ImageHandler from "./components/ImageHandler/ImageHandler";
 import VideoHandler from "./components/ImageHandler/VideoHandler";
+import HyperlinkHandler from "./components/Hyperlinks/HyperlinkHandler";
+import MoreInfo from "./components/MoreInfo/MoreInfo";
 
 const config = { 
    botName: "HeartBot",
@@ -130,6 +132,14 @@ const config = {
    {
       widgetName: "VideoHandler",
       widgetFunc: (props) => <VideoHandler {...props} />,
+   },
+   {
+      widgetName: "HyperlinkHandler",
+      widgetFunc: (props) => <HyperlinkHandler {...props} />,
+   },
+   {
+      widgetName: "MoreInfo",
+      widgetFunc: (props) => <MoreInfo {...props} />,
    },
    {
       widgetName: "javascriptLinks",
