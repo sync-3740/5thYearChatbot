@@ -1,5 +1,6 @@
 // import { click } from "@testing-library/user-event/dist/click";
 import message_to_response from "./Chatbot_Responses";
+import axios from "axios";
 
 class ActionProvider {
   constructor(createChatBotMessage, setStateFunc, createClientMessage) {
@@ -8,21 +9,84 @@ class ActionProvider {
     //this.createCustomMessage = createCustomMessage
     this.setState = setStateFunc;
   }
-  
+
+  componentDidMount() {
+    this.getIP();
+    this.createUser();
+  }
+
+  getIP = async () => {
+    const res = await axios.get("https://api.ipify.org/?format=json");
+    //console.log(res.data);
+    localStorage.setItem("IP_Address", JSON.stringify(res.data.ip));
+    return res.data.ip;
+  };
+
+  createUser = async () => {
+    var ip_address = JSON.parse(localStorage.getItem("IP_Address"));
+    if (ip_address == null){
+      ip_address = await this.getIP()
+    }
+
+    fetch('http://130.209.243.228:3001/addusers', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ip_address}),
+    })
+      .then(response => {
+        return response.text();
+      })
+      .then(data => {
+        //console.log(data);
+      });
+  };
+
+  createResponse = async (question, response) => {
+    var time = Date();
+    var ip_address = JSON.parse(localStorage.getItem("IP_Address"));
+    if (ip_address == null){
+      ip_address = await this.getIP()
+    }
+
+    fetch('http://130.209.243.228:3001/addquestions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({time, question, response, ip_address}),
+    })
+      .then(response => {
+        return response.text();
+      })
+      .then(data => {
+        //console.log(data);
+      });
+  };
+
   empty() {
     const emptyMessage = this.createChatBotMessage("Hello, it appears you have not entered a message. Type in your questions about blood pressure to get information.")
-    this.updateChatbotState(emptyMessage)
-  }
+    this.updateChatbotState(emptyMessage);
+    //localStorage.removeItem("IP_Address");
+  };
 
   store_data(question, response){
     var stored_data = JSON.parse(localStorage.getItem("Data"));
+    var ip_address = JSON.parse(localStorage.getItem("IP_Address"));
     const json_data = {Time: Date(), Question: question, Response: response}
 
     if (stored_data == null){
-      stored_data = []  
+      stored_data = []
     }
     stored_data.push(json_data)
     //console.log(stored_data)
+    if (ip_address == null){
+      this.getIP();
+      this.createUser();
+    }
+    this.createResponse(question, response);
+
     localStorage.setItem("Data", JSON.stringify(stored_data));
   }
 
