@@ -22,6 +22,7 @@ import ImageHandler from "./components/ImageHandler/ImageHandler";
 import VideoHandler from "./components/ImageHandler/VideoHandler";
 import HyperlinkHandler from "./components/Hyperlinks/HyperlinkHandler";
 import MoreInfo from "./components/MoreInfo/MoreInfo";
+import MoreInfoAPI from "./components/MoreInfo/MoreInfoAPI";
 
 const config = { 
    botName: "HeartBot",
@@ -140,6 +141,10 @@ const config = {
    {
       widgetName: "MoreInfo",
       widgetFunc: (props) => <MoreInfo {...props} />,
+   },
+   {
+      widgetName: "MoreInfoAPI",
+      widgetFunc: (props) => <MoreInfoAPI {...props} />,
    },
    {
       widgetName: "javascriptLinks",

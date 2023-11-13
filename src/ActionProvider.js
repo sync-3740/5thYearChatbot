@@ -125,9 +125,29 @@ class ActionProvider {
   }
 
   handleNewSummaryMessage = (question, response) => {
-    this.store_data(question, response)
+    
+    var [new_response, new_extra] = this.format_message(response)
+    if (new_extra == "None"){
+      var message = this.createChatBotMessage(
+        new_response,
+      );
+    } else {
+      var message = this.createChatBotMessage(
+        new_response, 
+        {
+          widget: "MoreInfoAPI", payload: [question, new_extra]
+        }
+      );
+    }
+    this.store_data(question, new_response)
+
+    this.updateChatbotState(message);
+  }
+
+  handleNewExtraSummaryMessage = (info_array) => {
+    this.store_data(info_array[0] + " 1", info_array[1])
     const message = this.createChatBotMessage(
-      response,
+      info_array[1],
     );
 
     this.updateChatbotState(message);
@@ -214,6 +234,19 @@ class ActionProvider {
 
     this.updateChatbotState(message);
 
+  }
+
+  format_message(message){
+    const firstDotIndex = message.indexOf('.');
+    const secondDotIndex = message.indexOf('.', firstDotIndex + 1);
+
+    if (secondDotIndex !== -1) {
+      var formatted_message = message.substring(0, secondDotIndex + 1); // Include the second full stop
+      var extra_message = message.substring(secondDotIndex + 1).trim();
+      return [formatted_message, extra_message]
+    } else {
+      return [message, "None"]
+    }
   }
   
   updateChatbotState(message) {

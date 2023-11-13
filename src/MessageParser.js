@@ -27,26 +27,12 @@ class MessageParser {
 
           var response_summary = data.responseSet[0].summary[0].text
 
-          var new_response = this.format_message(response_summary)
+          var new_response = this.remove_references(response_summary)
           
           this.actionProvider.handleNewSummaryMessage(lowerCaseMessage, new_response)
         })
         .catch((error) => console.log(error))
         }
-    }
-
-    format_message(message){
-      var new_message = this.remove_references(message)
-
-      const firstDotIndex = new_message.indexOf('.');
-      const secondDotIndex = new_message.indexOf('.', firstDotIndex + 1);
-
-      if (secondDotIndex !== -1) {
-        var formatted_message = new_message.substring(0, secondDotIndex + 1); // Include the second full stop
-        return formatted_message
-      } else {
-        return new_message
-      }
     }
 
     remove_references(message){
