@@ -1,4 +1,5 @@
 const message_to_response = {
+    "Start Menu": "What do you want to learn?",
     "Age": "As you grow older your blood pressure increases, this is due to a number of reasons such as: reduction in kidney function, less ability to rid the body of salt, hardening of the arteries.",
     "Sex": ["Blood pressure (BP) is generally higher in men than in women regardless of age. In young adults (ages 18 to 35), high blood pressure is more prevalent in men than women.",  "After women reach the age of 50 (when most women lose their estrogen through menopause or removal of their ovaries), women have a higher prevalence of high blood pressure than men."],
     "Ethnicity": ["It is known that there is a higher prevalence of hypertension in black populations. Hypertension related complications in black populations for example end stage renal disease.", "It is also known that African Americans are generally more responsive to diuretic and calcium channel blockers than to ACE inhibitors or beta blockers."],
@@ -117,6 +118,10 @@ const message_to_response = {
     "What is Gestational Hypertension?": "Some women who have never had high blood pressure may develop it while they are pregnant. When this happens after 20 weeks of pregnancy, it is known as gestational hypertension. This high blood pressure usually disappears after delivery. If the mother is not treated during pregnancy, high blood pressure can be dangerous to both the mother and baby. That is why doctors usually keep a close watch on blood pressure during pregnancy.",
     "What is Preeclampsia?": "Preeclampsia (sometimes known as toxemia of pregnancy) is a condition, closely related to gestational hypertension, that typically begins after the 20th week of pregnancy. It is usually characterized by high blood pressure and elevated protein in the urine. Delivery of the baby is the only cure for preeclampsia.",
     "How can I prevent Gestational Hypertension?": "There is no proven way to prevent gestational hypertension or preeclampsia and no test that will predict or diagnose these conditions. Only regular visits to your doctor will confirm that you're having a safe pregnancy. Your doctor will track your blood pressure and check the level of protein in your urine.",
+    "Test My Knowledge": "Let's test your knowledge of blood pressure and hypertension with a quiz, which quiz do you want to do?",
+    "Finished Test": "Congrats on finished the previous test, you can select another one here or type 'menu' to get back to the start.",
+    "Starting Test": "Let's get started on the Starting Test, this will test your base knowledge level, before you start using the chatbot.",
+    "Basic Overview": "Let's get started on the Basic Overview Test, this will test your basic knowledge about Blood pressure, hypertension and cholesterol."
 }
 
 export default message_to_response

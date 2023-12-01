@@ -23,6 +23,8 @@ import VideoHandler from "./components/ImageHandler/VideoHandler";
 import HyperlinkHandler from "./components/Hyperlinks/HyperlinkHandler";
 import MoreInfo from "./components/MoreInfo/MoreInfo";
 import MoreInfoAPI from "./components/MoreInfo/MoreInfoAPI";
+import TestSelector from "./components/Tests/TestSelector";
+import QuestionTemplate from "./components/Tests/QuestionTemplate";
 
 const config = { 
    botName: "HeartBot",
@@ -145,6 +147,14 @@ const config = {
    {
       widgetName: "MoreInfoAPI",
       widgetFunc: (props) => <MoreInfoAPI {...props} />,
+   },
+   {
+      widgetName: "TestSelector",
+      widgetFunc: (props) => <TestSelector {...props} />,
+   },
+   {
+      widgetName: "QuestionTemplate",
+      widgetFunc: (props) => <QuestionTemplate {...props} />,
    },
    {
       widgetName: "javascriptLinks",

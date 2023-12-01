@@ -1,5 +1,6 @@
 // import { click } from "@testing-library/user-event/dist/click";
 import message_to_response from "./Chatbot_Responses";
+import TestModule from "./Question_Bank";
 import axios from "axios";
 
 class ActionProvider {
@@ -247,6 +248,61 @@ class ActionProvider {
     } else {
       return [message, "None"]
     }
+  }
+
+  handleTest = (test_type) => {
+    TestModule.chooseTest(test_type)
+
+    const question = TestModule.get_nextQuestion();
+
+    console.log("Question, ", question)
+    
+    this.addMessage(message_to_response[test_type])
+    this.handleQuestion(question)
+    
+  }
+
+  handleQuestion = (question) => {
+    const message = this.createChatBotMessage(
+      question["question"],
+      {
+        widget: "QuestionTemplate", payload: question
+      }
+    );
+
+    this.updateChatbotState(message)
+  }
+
+  handleAnswer = (answer, question) => {
+
+    this.handleRequest(answer)
+
+    if (answer == question["correct_answer"]){
+      this.addMessage("Congrats you're correct")
+      TestModule.get_runningTotal(true)
+    } else {
+      this.addMessage("Sorry that's wrong")
+      TestModule.get_runningTotal(false)
+    }
+
+    var next_question = TestModule.get_nextQuestion();
+
+    if (next_question == "Finished") {
+      
+      var score = TestModule.get_runningTotal(false);
+      this.addMessage("Quiz Finished, your score was "+ score + " out of " + TestModule.getTest().length + "!")
+      this.handleNewWidgetMessage("Finished Test", "TestSelector")
+
+    } else {
+      const message = this.createChatBotMessage(
+        next_question["question"],
+        {
+          widget: "QuestionTemplate", payload: next_question
+        }
+      );
+      this.updateChatbotState(message)
+    }
+    
   }
   
   updateChatbotState(message) {
