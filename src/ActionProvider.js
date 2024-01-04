@@ -16,80 +16,11 @@ class ActionProvider {
     this.createUser();
   }
 
-  getIP = async () => {
-    const res = await axios.get("https://api.ipify.org/?format=json");
-    //console.log(res.data);
-    localStorage.setItem("IP_Address", JSON.stringify(res.data.ip));
-    return res.data.ip;
-  };
-
-  createUser = async () => {
-    var ip_address = JSON.parse(localStorage.getItem("IP_Address"));
-    if (ip_address == null){
-      ip_address = await this.getIP()
-    }
-
-    fetch('http://130.209.243.228:3001/addusers', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ip_address}),
-    })
-      .then(response => {
-        return response.text();
-      })
-      .then(data => {
-        //console.log(data);
-      });
-  };
-
-  createResponse = async (question, response) => {
-    var time = Date();
-    var ip_address = JSON.parse(localStorage.getItem("IP_Address"));
-    if (ip_address == null){
-      ip_address = await this.getIP()
-    }
-
-    fetch('http://130.209.243.228:3001/addquestions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({time, question, response, ip_address}),
-    })
-      .then(response => {
-        return response.text();
-      })
-      .then(data => {
-        //console.log(data);
-      });
-  };
-
   empty() {
     const emptyMessage = this.createChatBotMessage("Hello, it appears you have not entered a message. Type in your questions about blood pressure to get information.")
     this.updateChatbotState(emptyMessage);
     //localStorage.removeItem("IP_Address");
   };
-
-  store_data(question, response){
-    var stored_data = JSON.parse(localStorage.getItem("Data"));
-    var ip_address = JSON.parse(localStorage.getItem("IP_Address"));
-    const json_data = {Time: Date(), Question: question, Response: response}
-
-    if (stored_data == null){
-      stored_data = []
-    }
-    stored_data.push(json_data)
-    //console.log(stored_data)
-    if (ip_address == null){
-      this.getIP();
-      this.createUser();
-    }
-    this.createResponse(question, response);
-
-    localStorage.setItem("Data", JSON.stringify(stored_data));
-  }
 
   handleRequest = (clicked) => {
     const question = this.createClientMessage(clicked)
@@ -99,7 +30,6 @@ class ActionProvider {
   handleNewMessage = (clicked) => {
     var message;
     if (Array.isArray(message_to_response[clicked])){
-      this.store_data(clicked, message_to_response[clicked][0])
       message = this.createChatBotMessage(
         message_to_response[clicked][0],
         {
@@ -107,7 +37,6 @@ class ActionProvider {
         }
       );
     } else {
-      this.store_data(clicked, message_to_response[clicked])
       message = this.createChatBotMessage(
         message_to_response[clicked],
       );
@@ -117,7 +46,6 @@ class ActionProvider {
   }
 
   handleNewExtraMessage = (clicked) => {
-    this.store_data(clicked + " 1", message_to_response[clicked][1])
     const message = this.createChatBotMessage(
       message_to_response[clicked][1],
     );
@@ -140,13 +68,11 @@ class ActionProvider {
         }
       );
     }
-    this.store_data(question, new_response)
 
     this.updateChatbotState(message);
   }
 
   handleNewExtraSummaryMessage = (info_array) => {
-    this.store_data(info_array[0] + " 1", info_array[1])
     const message = this.createChatBotMessage(
       info_array[1],
     );
@@ -155,7 +81,6 @@ class ActionProvider {
   }
 
   handleNewWidgetMessage = (clicked, widget) => {
-    this.store_data(clicked, message_to_response[clicked])
     const message = this.createChatBotMessage(
       message_to_response[clicked],
       {
@@ -177,7 +102,6 @@ class ActionProvider {
   }
 
   handleNewImageMessage = (clicked, image_name) => {
-    this.store_data(clicked, message_to_response[clicked])
     const message = this.createChatBotMessage(
       message_to_response[clicked],
       {
@@ -189,7 +113,6 @@ class ActionProvider {
   }
 
   handleNewVideoMessage = (clicked, video_url) => {
-    this.store_data(clicked, message_to_response[clicked])
     const message = this.createChatBotMessage(
       message_to_response[clicked],
       {
@@ -201,7 +124,6 @@ class ActionProvider {
   }
 
   handleNewHyperlinkMessage = (clicked, link) => {
-    this.store_data(clicked, message_to_response[clicked])
     const message = this.createChatBotMessage(
       message_to_response[clicked],
       {
@@ -222,7 +144,6 @@ class ActionProvider {
 
   handleOfficeBP = () => {
     var clicked = "Office BP"
-    this.store_data(clicked, message_to_response[clicked])
     for (let i = 0; i < message_to_response[clicked].length - 1; i++){
       this.addMessage(message_to_response[clicked][i])
     }
