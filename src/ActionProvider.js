@@ -162,7 +162,7 @@ class ActionProvider {
     const firstDotIndex = message.indexOf('.');
     const secondDotIndex = message.indexOf('.', firstDotIndex + 1);
 
-    if (secondDotIndex !== -1) {
+    if (message.indexOf('.', secondDotIndex + 1) !== -1) {
       var formatted_message = message.substring(0, secondDotIndex + 1); // Include the second full stop
       var extra_message = message.substring(secondDotIndex + 1).trim();
       return [formatted_message, extra_message]
