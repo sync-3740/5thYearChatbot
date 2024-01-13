@@ -9,8 +9,8 @@ class MessageParser {
     if (lowerCaseMessage === "") {
       this.actionProvider.empty()
     } else {
-      this.actionProvider.addMessage("Fetching response...")
-    
+      //this.actionProvider.addMessage("Fetching response...")
+      this.actionProvider.handleLoader()
       fetch("https://api.vectara.io:443/v1/query", {
         headers: {
           "Content-Type": "application/json",

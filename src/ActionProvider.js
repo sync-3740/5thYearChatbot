@@ -1,6 +1,7 @@
 // import { click } from "@testing-library/user-event/dist/click";
 import message_to_response from "./Chatbot_Responses";
 import TestModule from "./Question_Bank";
+import Loader from "./components/Loader/Loader";
 import axios from "axios";
 
 class ActionProvider {
@@ -49,6 +50,22 @@ class ActionProvider {
     this.updateChatbotState(message);
   }
 
+  createLoaderMessage = () => {
+    return {
+      message: <Loader />,
+      type: "bot",
+      id: Math.round(Date.now() * Math.random()),
+    };
+  };
+
+  handleLoader = () => {
+    const loader = this.createLoaderMessage()
+    
+
+    this.updateChatbotState(loader);
+
+  }
+
   handleNewSummaryMessage = (question, response) => {
     
     var [new_response, new_extra] = this.format_message(response)
@@ -65,7 +82,7 @@ class ActionProvider {
       );
     }
 
-    this.updateChatbotState(message);
+    this.updateChatbotLoader(message);
   }
 
   handleNewExtraSummaryMessage = (info_array) => {
@@ -231,6 +248,16 @@ class ActionProvider {
     	...prevState, messages: [...prevState.messages, message]
     }))
   }
+
+  updateChatbotLoader(message) {
+ 
+    // NOTE: This function is set in the constructor, and is passed in      // from the top level Chatbot component. The setState function here     // actually manipulates the top level state of the Chatbot, so it's     // important that we make sure that we preserve the previous state.
+     
+        
+       this.setState(prevState => ({
+          ...prevState, messages: [...prevState.messages.slice(0, -1), message]
+        }))
+      }
 }
 
 export default ActionProvider
