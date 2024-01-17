@@ -13,7 +13,7 @@ class ActionProvider {
   }
 
   empty() {
-    const emptyMessage = this.createChatBotMessage("Hello, it appears you have not entered a message. Type in your questions about blood pressure to get information.")
+    const emptyMessage = this.createChatBotMessage("Hello, it appears you have not entered a message. Type in your questions about blood pressure to get information.", null, true)
     this.updateChatbotState(emptyMessage);
     //localStorage.removeItem("IP_Address");
   };
@@ -31,11 +31,11 @@ class ActionProvider {
         message_to_response[clicked][0],
         {
           widget: "MoreInfo", payload: clicked
-        }
+        }, true
       );
     } else {
       message = this.createChatBotMessage(
-        message_to_response[clicked],
+        message_to_response[clicked], null, true
       );
     }
 
@@ -44,7 +44,7 @@ class ActionProvider {
 
   handleNewExtraMessage = (clicked) => {
     const message = this.createChatBotMessage(
-      message_to_response[clicked][1],
+      message_to_response[clicked][1], null, true
     );
 
     this.updateChatbotState(message);
@@ -71,14 +71,14 @@ class ActionProvider {
     var [new_response, new_extra] = this.format_message(response)
     if (new_extra == "None"){
       var message = this.createChatBotMessage(
-        new_response,
+        new_response, null, true
       );
     } else {
       var message = this.createChatBotMessage(
         new_response, 
         {
           widget: "MoreInfoAPI", payload: [question, new_extra]
-        }
+        }, false
       );
     }
 
@@ -87,7 +87,7 @@ class ActionProvider {
 
   handleNewExtraSummaryMessage = (info_array) => {
     const message = this.createChatBotMessage(
-      info_array[1],
+      info_array[1], null, true
     );
 
     this.updateChatbotState(message);
@@ -98,7 +98,7 @@ class ActionProvider {
       message_to_response[clicked],
       {
         widget: widget
-      }
+      }, true
     );
 
     this.updateChatbotState(message);
@@ -108,7 +108,7 @@ class ActionProvider {
     const message = this.createChatBotMessage(
       {
         widget: "ImageHandler", payload: image_name
-      }
+      }, null, true
     );
 
     this.updateChatbotState(message);
@@ -119,7 +119,7 @@ class ActionProvider {
       message_to_response[clicked],
       {
         widget: "ImageHandler", payload: image_name
-      }
+      }, null, true
     );
 
     this.updateChatbotState(message);
@@ -130,7 +130,7 @@ class ActionProvider {
       message_to_response[clicked],
       {
         widget: "VideoHandler", payload: video_url
-      }
+      }, null, true
     );
 
     this.updateChatbotState(message);
@@ -141,7 +141,7 @@ class ActionProvider {
       message_to_response[clicked],
       {
         widget: "HyperlinkHandler", payload: link
-      }
+      }, null, true
     );
 
     this.updateChatbotState(message);
@@ -149,7 +149,7 @@ class ActionProvider {
 
   addMessage = (response) => {
     const message = this.createChatBotMessage(
-      response,
+      response, null, true
     );
 
     this.updateChatbotState(message);
@@ -164,7 +164,7 @@ class ActionProvider {
       message_to_response[clicked][message_to_response[clicked].length - 1],
       {
         widget: "ImageHandler", payload: "office_bp"
-      }
+      }, true
     );
 
     this.updateChatbotState(message);
@@ -201,7 +201,7 @@ class ActionProvider {
       question["question"],
       {
         widget: "QuestionTemplate", payload: question
-      }
+      }, true
     );
 
     this.updateChatbotState(message)
@@ -232,7 +232,7 @@ class ActionProvider {
         next_question["question"],
         {
           widget: "QuestionTemplate", payload: next_question
-        }
+        }, true
       );
       this.updateChatbotState(message)
     }
