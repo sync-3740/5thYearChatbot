@@ -1,5 +1,5 @@
 import os
-import bs4
+#import bs4
 from langchain import hub
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.chat_models import ChatOpenAI
@@ -9,7 +9,7 @@ from langchain_community.vectorstores import Chroma
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 from langchain_community.document_loaders import BSHTMLLoader, DirectoryLoader
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Response
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -19,15 +19,18 @@ CORS(app)
 def your_llm_function(input_data):
     # Perform your LLM operations here
     # Return the result
-    return rag_chain.invoke(input_data)
+    for chunk in rag_chain.stream(input_data):
+        yield chunk
+    
 
 # API endpoint to handle requests
 @app.route('/llm', methods=['POST'])
 def process_llm():
     data = request.get_json()
     input_data = data['input']
-    result = your_llm_function(input_data)
-    return jsonify({'result': result})
+    return Response(your_llm_function(input_data), content_type='text/plain; charset=utf-8')
+    #result = your_llm_function(input_data)
+    #return jsonify({'result': result})
 
 if __name__ == '__main__':
     os.environ["OPENAI_API_KEY"] = "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"

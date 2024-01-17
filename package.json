@@ -15,7 +15,7 @@
     "node-nlp": "^4.27.0",
     "os": "^0.1.2",
     "react": "^18.2.0",
-    "react-chatbot-kit": "^2.1.2",
+    "react-chatbot-kit": "git+https://github.com/sync-3740/react-chatbot-kit.git",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
@@ -46,5 +46,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
   }
 }

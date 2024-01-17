@@ -10,23 +10,41 @@ class MessageParser {
     if (lowerCaseMessage === "") {
       this.actionProvider.empty()
     } else {
-      this.actionProvider.addMessage("Fetching response...")
-
-      fetch('http://127.0.0.1:5000/llm', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ input: lowerCaseMessage }),
-      })
-        .then(response => response.json())
-        .then(data => {
-          console.log(data.result)
-          this.actionProvider.handleNewSummaryMessage(lowerCaseMessage, data.result)
-        })
-        .catch(error => {
-          console.error('Error:', error);
+      try {
+        const response = await fetch('http://127.0.0.1:5000/llm', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ input: lowerCaseMessage }),
         });
+
+        console.log(response)
+
+        const reader = response.body.getReader();
+        var new_message = ""
+
+        const decoder = new TextDecoder('utf-8');
+
+        // Assuming 'data' is your Uint8Array
+        
+        while (true) {
+          const { done, value } = await reader.read();
+
+          if (done) {
+            break;
+          }
+
+          const decodedData = decoder.decode(value);
+          new_message += decodedData
+          //console.log(new_message)
+          this.actionProvider.handleNewSummaryMessage(new_message)
+
+
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
       
     }
   }
