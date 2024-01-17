@@ -10,6 +10,7 @@ class MessageParser {
     if (lowerCaseMessage === "") {
       this.actionProvider.empty()
     } else {
+      this.actionProvider.handleLoader()
       try {
         const response = await fetch('http://127.0.0.1:5000/llm', {
           method: 'POST',
@@ -25,8 +26,6 @@ class MessageParser {
         var new_message = ""
 
         const decoder = new TextDecoder('utf-8');
-
-        // Assuming 'data' is your Uint8Array
         
         while (true) {
           const { done, value } = await reader.read();

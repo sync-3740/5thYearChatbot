@@ -33,7 +33,7 @@ def process_llm():
     #return jsonify({'result': result})
 
 if __name__ == '__main__':
-    os.environ["OPENAI_API_KEY"] = "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"
+    os.environ["OPENAI_API_KEY"] = "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"
 
 
     folder_path = 'C:\\Users\\jonny\\Documents\\5thYearMastersProject\\ReactChatbot\\llm_data'

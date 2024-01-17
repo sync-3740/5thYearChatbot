@@ -2,6 +2,7 @@
 import message_to_response from "./Chatbot_Responses";
 import TestModule from "./Question_Bank";
 import axios from "axios";
+import Loader from "./components/Loader/Loader";
 
 class ActionProvider {
   constructor(createChatBotMessage, setStateFunc, createClientMessage) {
@@ -48,21 +49,40 @@ class ActionProvider {
     this.updateChatbotState(message);
   }
 
-  handleNewSummaryMessage = (response) => {
+  createLoaderMessage = () => {
+    return {
+      message: <Loader />,
+      type: "bot",
+      id: Math.round(Date.now() * Math.random()),
+    };
+  };
+
+  handleLoader = () => {
+    const loader = this.createLoaderMessage()
     
-    var [new_response, new_extra] = this.format_message(response)
-    if (new_extra == "None"){
-      var message = this.createChatBotMessage(
-        new_response,
-      );
-    } else {
-      var message = this.createChatBotMessage(
-        new_response, 
-        {
-          widget: "MoreInfoAPI", payload: new_extra
-        }
-      );
-    }
+
+    this.updateChatbotState(loader);
+
+  }
+
+  handleNewSummaryMessage = (response) => {
+    var new_response = response
+    var message = this.createChatBotMessage(
+      new_response,
+    );
+    //var [new_response, new_extra] = this.format_message(response)
+    // if (new_extra == "None"){
+    //   var message = this.createChatBotMessage(
+    //     new_response,
+    //   );
+    // } else {
+    //   var message = this.createChatBotMessage(
+    //     new_response, 
+    //     {
+    //       widget: "MoreInfoAPI", payload: new_extra
+    //     }
+    //   );
+    // }
 
     this.updateStreamState(message);
   }
