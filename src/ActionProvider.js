@@ -125,24 +125,24 @@ class ActionProvider {
     this.updateChatbotState(message);
   }
 
-  handleNewSummaryMessage = (question, response) => {
+  handleNewSummaryMessage = (response) => {
     
     var [new_response, new_extra] = this.format_message(response)
-    if (new_extra == "None"){
-      var message = this.createChatBotMessage(
-        new_response,
-      );
-    } else {
-      var message = this.createChatBotMessage(
-        new_response, 
-        {
-          widget: "MoreInfoAPI", payload: [question, new_extra]
-        }
-      );
-    }
-    this.store_data(question, new_response)
+    var message = this.createClientMessage(new_response)
+    // if (new_extra == "None"){
+    //   var message = this.createChatBotMessage(
+    //     new_response,
+    //   );
+    // } else {
+    //   var message = this.createChatBotMessage(
+    //     new_response, 
+    //     {
+    //       widget: "MoreInfoAPI", payload: new_extra
+    //     }
+    //   );
+    // }
 
-    this.updateChatbotState(message);
+    this.updateStreamState(message);
   }
 
   handleNewExtraSummaryMessage = (info_array) => {
@@ -314,6 +314,16 @@ class ActionProvider {
     	...prevState, messages: [...prevState.messages, message]
     }))
   }
+
+  updateStreamState(message) {
+ 
+    // NOTE: This function is set in the constructor, and is passed in      // from the top level Chatbot component. The setState function here     // actually manipulates the top level state of the Chatbot, so it's     // important that we make sure that we preserve the previous state.
+     
+        
+       this.setState(prevState => ({
+          ...prevState, messages: [...prevState.messages.slice(0, -1), message]
+        }))
+      }
 }
 
 export default ActionProvider

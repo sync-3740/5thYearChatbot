@@ -15,18 +15,73 @@ class MessageParser {
     
 
 
-      const openai = new OpenAI({apiKey: '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', dangerouslyAllowBrowser: true});
+      //const openai = new OpenAI({apiKey: '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', dangerouslyAllowBrowser: true});
 
-      const completion = await openai.chat.completions.create({
-        messages: [{ role: "system", content: "You are a helpful assistant." }, { role: "user", content: lowerCaseMessage }],
-        model: "gpt-3.5-turbo",
-      });
+      
+      // const completion = await openai.chat.completions.create({
+      //   messages: [{ role: "system", content: "You are a helpful assistant." }, { role: "user", content: lowerCaseMessage }],
+      //   model: "gpt-3.5-turbo",
+      //   stream: true,
+      // });
 
-      console.log(completion.choices[0].message.content);
+      
 
-      var response_summary = completion.choices[0].message.content
+      try {
+        const response = await fetch("https://api.openai.com/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer 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`,
+          },
+          body: JSON.stringify({
+            model: "gpt-3.5-turbo",
+            messages: [{ role: "user", content: lowerCaseMessage }],
+            //max_tokens: 100,
+            stream: true, // For streaming responses
+          }),
+        });
+    
+        // Read the response as a stream of data
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder("utf-8");
 
-      this.actionProvider.handleNewSummaryMessage(lowerCaseMessage, response_summary)
+        var message = "";
+    
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) {
+            break;
+          }
+          // Massage and parse the chunk of data
+          const chunk = decoder.decode(value);
+
+          const lines = chunk.split("\n");
+
+          const parsedLines = lines
+            .map((line) => line.replace(/^data: /, "").trim()) // Remove the "data: " prefix
+            .filter((line) => line !== "" && line !== "[DONE]") // Remove empty lines and "[DONE]"
+            .map((line) => JSON.parse(line)); // Parse the JSON string
+          
+
+          for (const parsedLine of parsedLines) {
+            console.log(parsedLine["choices"][0]["delta"]["content"])
+            var content = parsedLine["choices"][0]["delta"]["content"]
+            if (content) {
+              message += content;
+            }
+            this.actionProvider.handleNewSummaryMessage(message)
+          }
+        }
+      } catch(e) {
+        console.log(e)
+      }
+
+      console.log(message)
+      //console.log(completion);
+
+      //var response_summary = completion.choices[0].message.content
+
+      this.actionProvider.handleNewSummaryMessage(message)
     }
       
 
