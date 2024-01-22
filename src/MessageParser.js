@@ -12,15 +12,13 @@ class MessageParser {
     } else {
       this.actionProvider.handleLoader()
       try {
-        const response = await fetch('http://127.0.0.1:5000/llm', {
+        const response = await fetch('https://flaskapi-150x.onrender.com/llm', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ input: lowerCaseMessage }),
         });
-
-        console.log(response)
 
         const reader = response.body.getReader();
         var new_message = ""
