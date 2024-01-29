@@ -4,6 +4,7 @@ class MessageParser {
   constructor(actionProvider) {
     this.actionProvider = actionProvider;
   }
+  
 
   async parse(message) {
     const lowerCaseMessage = message.toLowerCase()
@@ -11,6 +12,7 @@ class MessageParser {
     if (lowerCaseMessage === "") {
       this.actionProvider.empty()
     } else {
+      const apiKey = process.env.REACT_APP_API_KEY;
       this.actionProvider.addMessage("Fetching response...")
     
 
@@ -31,7 +33,7 @@ class MessageParser {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer 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`,
+            Authorization: `Bearer ` + apiKey,
           },
           body: JSON.stringify({
             model: "gpt-3.5-turbo",
