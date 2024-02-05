@@ -1,7 +1,6 @@
 // import { click } from "@testing-library/user-event/dist/click";
 import message_to_response from "./Chatbot_Responses";
 import TestModule from "./Question_Bank";
-import axios from "axios";
 import Loader from "./components/Loader/Loader";
 
 class ActionProvider {
@@ -44,6 +43,17 @@ class ActionProvider {
   handleNewExtraMessage = (clicked) => {
     const message = this.createChatBotMessage(
       message_to_response[clicked][1],
+    );
+
+    this.updateChatbotState(message);
+  }
+
+  menu = () => {
+    var message = this.createChatBotMessage(
+      "Hello, this is the main menu. Click on any of the buttons below to find out more, or type a message into the chat.",
+      {
+        widget:"learningOptions"
+      }
     );
 
     this.updateChatbotState(message);

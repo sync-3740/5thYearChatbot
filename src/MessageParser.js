@@ -9,6 +9,8 @@ class MessageParser {
     
     if (lowerCaseMessage === "") {
       this.actionProvider.empty()
+    } else if (lowerCaseMessage === "menu") {
+      this.actionProvider.menu()
     } else {
       this.actionProvider.handleLoader()
       try {
