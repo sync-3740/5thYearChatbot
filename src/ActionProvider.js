@@ -76,23 +76,23 @@ class ActionProvider {
   }
 
   handleNewSummaryMessage = (response) => {
-    var new_response = response
-    var message = this.createChatBotMessage(
-      new_response,
-    );
-    //var [new_response, new_extra] = this.format_message(response)
-    // if (new_extra == "None"){
-    //   var message = this.createChatBotMessage(
-    //     new_response,
-    //   );
-    // } else {
-    //   var message = this.createChatBotMessage(
-    //     new_response, 
-    //     {
-    //       widget: "MoreInfoAPI", payload: new_extra
-    //     }
-    //   );
-    // }
+    //var new_response = response
+    // var message = this.createChatBotMessage(
+    //   new_response,
+    // );
+    var [new_response, new_extra] = this.format_message(response)
+    if (new_extra == "None"){
+      var message = this.createChatBotMessage(
+        new_response,
+      );
+    } else {
+      var message = this.createChatBotMessage(
+        new_response, 
+        {
+          widget: "MoreInfoAPI", payload: new_extra
+        }
+      );
+    }
 
     this.updateStreamState(message);
   }
@@ -187,10 +187,10 @@ class ActionProvider {
     const firstDotIndex = message.indexOf('.');
     const secondDotIndex = message.indexOf('.', firstDotIndex + 1);
 
-    if (message.indexOf('.', secondDotIndex + 1) !== -1) {
-      var formatted_message = message.substring(0, secondDotIndex + 1); // Include the second full stop
-      var extra_message = message.substring(secondDotIndex + 1).trim();
-      return [formatted_message, extra_message]
+    if (secondDotIndex !== -1 && message.length > secondDotIndex+1) {
+        var formatted_message = message.substring(0, secondDotIndex + 1); // Include the second full stop
+        var extra_message = message.substring(secondDotIndex + 1).trim();
+        return [formatted_message, extra_message]
     } else {
       return [message, "None"]
     }
