@@ -9,7 +9,7 @@ const LearningOptions = (props) => {
     { text: "Cholesterol", handler: () => {props.actionProvider.handleRequest("Cholesterol"); props.actionProvider.handleNewWidgetMessage("Cholesterol", "CholesterolOptions")}, id: 3 },
     { text: "A Healthy Lifestyle", handler: () => {props.actionProvider.handleRequest("A Healthy Lifestyle"); props.actionProvider.handleNewWidgetMessage("A Healthy Lifestyle", "LifestyleOptions")}, id: 4 },
     { text: "Medicines", handler: () => {props.actionProvider.handleRequest("Medicines"); props.actionProvider.handleNewWidgetMessage("Medicines", "MedicationOptions")}, id: 5 },
-    { text: "Differences for Women", handler: () => {props.actionProvider.handleRequest("Differences for Women"); props.actionProvider.handleNewWidgetMessage("Differences for Women", "WomenOptions")}, id: 6 },
+    { text: "Considerations for Women", handler: () => {props.actionProvider.handleRequest("Considerations for Women"); props.actionProvider.handleNewWidgetMessage("Considerations for Women", "WomenOptions")}, id: 6 },
     //{ text: "Test My Knowledge", handler: () => {props.actionProvider.handleRequest("Test My Knowledge"); props.actionProvider.handleNewWidgetMessage("Test My Knowledge", "TestSelector")}, id: 7 },
   ];
 

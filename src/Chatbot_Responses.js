@@ -44,7 +44,7 @@ const message_to_response = {
     "Cholesterol": "Fantastic, what do you want to know about cholesterol?",
     "A Healthy Lifestyle": "To reduce blood pressure, it is important to work on modifiable risk factors listed below. Click on any of them for more information:",
     "Medicines": "Information on specific types of medication can be found by clicking any of the options below.",
-    "Differences for Women": "The main differences to consider if you are a women are listed below. Click on any of the options for more information:",
+    "Considerations for Women": "The main differences to consider if you are a women are listed below. Click on any of the options for more information:",
     "Life Physical Activity": "Exercising regularly is an important part of a healthy lifestyle. In addition to helping with your weight, boosting your mental health, and even helping you sleep better, exercise also reduces your blood pressure and can reduce your risk of heart and circulatory diseases by up to 35%!",
     "Life Diet": "A healthy and balanced diet can help you lower and control your blood pressure, help with weight management, and decrease your risk of developing heart conditions. Try to make sustainable healthy changes to your diet. Crash diets aimed at losing weight rarely lead to permanent results and don't help you build healthy habits.",
     "Life Salt": "Salt, which is sometimes also called sodium, is necessary in your diet in small amounts. Too much of it, however, can affect your body and increase your blood pressure. Adults should eat no more than 6 grams of salt a day, which about one level teaspoon.",
